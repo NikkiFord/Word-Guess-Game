@@ -1,6 +1,6 @@
 
 
-var lettersGuessed, wins, guessesRemaining, currentWord, catBreeds;
+var wrongLetters, correctLetters, wins, guessesRemaining, currentWord, catBreeds;
 function newGame() {
     catBreeds = [
         "Abyssinian",
@@ -102,10 +102,35 @@ function newGame() {
         "Ukrainian Levkoy"
     ];
 
-    lettersGuessed = [];
+    wrongLetters = [];
+    correctLetters = [];
     wins = 0;
     guessesRemaining = 7;
     currentWord = catBreeds[Math.floor(Math.random() * catBreeds.length)];
 }
 
 newGame();
+
+document.onkeydown = function (event) {
+    var matched = false;
+    for (var i = 0; i < currentWord.length; i++) {
+        var letter = currentWord[i];
+
+        if (letter === event.key) {
+            correctLetters.push(letter);
+            matched = true;
+        }
+    }
+    if (matched === false) {
+        wrongLetters.push(event.key);
+        guessesRemaining--;
+        if (guessesRemaining === 0) {
+            alert("You Lost!");
+            newGame();
+        }
+    } else if (correctLetters.length === currentWord.length) {
+        alert("You won!");
+        wins++;
+        newGame();
+    }
+}   
