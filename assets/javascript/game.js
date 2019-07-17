@@ -12,14 +12,12 @@ function newGame() {
         "Arabian Mau",
         "Australian Mist",
         "Asian",
-        "Asian Semi-longhair",
         "Balinese",
         "Bambino",
         "Bengal",
         "Birman",
         "Bombay",
         "Brazilian Shorthair",
-        "British Semi-longhair",
         "British Shorthair",
         "British Longhair",
         "Burmese",
@@ -70,15 +68,14 @@ function newGame() {
         "Oriental Shorthair",
         "Oriental Longhair",
         "PerFold",
-        "Persian (Modern Persian Cat)",
-        "Persian (Traditional Persian Cat)",
+        "Persian",
         "Peterbald",
         "Pixie-bob",
         "Raas",
         "Ragamuffin",
         "Ragdoll",
         "Russian Blue",
-        "Russian White, Black and Tabby",
+        "Russian White",
         "Sam Sawet",
         "Savannah",
         "Scottish Fold",
@@ -113,14 +110,30 @@ function newGame() {
 newGame();
 
 document.onkeydown = function(event) {
-    var matched = false;
-    for (var i = 0; i < currentWord.length; i++) {
-        var letter = currentWord[i];
+    for (var correctLettersIndex = 0; correctLettersIndex < correctLetters.length; correctLettersIndex++) {
+        var correctLettersLetter = correctLetters[correctLettersIndex];
 
-        if (letter === event.key) {
+        if (correctLettersLetter.toLowerCase() === event.key) {
+            return;
+        }
+
+    }
+    for (var wrongLettersIndex = 0; wrongLettersIndex < wrongLetters.length; wrongLettersIndex++) {
+        var wrongLettersLetter = wrongLetters[wrongLettersIndex];
+
+        if (wrongLettersLetter.toLowerCase() === event.key) {
+            return;
+        }
+    }
+    var matched = false;
+    for (var currentWordIndex = 0; currentWordIndex < currentWord.length; currentWordIndex++) {
+        var letter = currentWord[currentWordIndex];
+
+        if (letter.toLowerCase() === event.key) {
             correctLetters.push(letter);
             matched = true;
-        }
+            updateHtml();
+        } 
     }
     if (matched === false) {
         wrongLetters.push(event.key);
@@ -128,6 +141,8 @@ document.onkeydown = function(event) {
         if (guessesRemaining === 0) {
             alert("You Lost!");
             newGame();
+        } else {
+            updateHtml();
         }
     } else if (correctLetters.length === currentWord.length) {
         alert("You won!");
@@ -140,13 +155,17 @@ function updateHtml() {
     var winsDiv = document.getElementById("wins");
     var currentWordDiv = document.getElementById("currentWord");
     var guessesRemainingDiv = document.getElementById("guessesRemaining");
-    var lettersGuessedDiv = document.getElementById("lettersGuessed");
+    var wrongLettersDiv = document.getElementById("wrongLetters");
 
-    winsDiv.textContent = wins;
+
 
     var displayWord = "";
     for (var currentWordIndex = 0; currentWordIndex < currentWord.length; currentWordIndex++) {
         var currentWordLetter = currentWord[currentWordIndex];
+        if (currentWordLetter === "-") {
+            displayWord += "-";
+            continue;
+        }
         var matched = false;
         for (var correctLettersIndex = 0; correctLettersIndex < correctLetters.length; correctLettersIndex++) {
             var correctLettersLetter = correctLetters[correctLettersIndex];
@@ -161,6 +180,9 @@ function updateHtml() {
         }
     }
 
+    winsDiv.textContent = wins;
     currentWordDiv.textContent = displayWord;
+    guessesRemainingDiv.textContent = guessesRemaining;
+    wrongLettersDiv.textContent = wrongLetters.join(" ");
 }
 
