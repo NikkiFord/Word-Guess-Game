@@ -107,11 +107,12 @@ function newGame() {
     wins = 0;
     guessesRemaining = 7;
     currentWord = catBreeds[Math.floor(Math.random() * catBreeds.length)];
+    updateHtml();
 }
 
 newGame();
 
-document.onkeydown = function (event) {
+document.onkeydown = function(event) {
     var matched = false;
     for (var i = 0; i < currentWord.length; i++) {
         var letter = currentWord[i];
@@ -133,4 +134,33 @@ document.onkeydown = function (event) {
         wins++;
         newGame();
     }
-}   
+};  
+
+function updateHtml() {
+    var winsDiv = document.getElementById("wins");
+    var currentWordDiv = document.getElementById("currentWord");
+    var guessesRemainingDiv = document.getElementById("guessesRemaining");
+    var lettersGuessedDiv = document.getElementById("lettersGuessed");
+
+    winsDiv.textContent = wins;
+
+    var displayWord = "";
+    for (var currentWordIndex = 0; currentWordIndex < currentWord.length; currentWordIndex++) {
+        var currentWordLetter = currentWord[currentWordIndex];
+        var matched = false;
+        for (var correctLettersIndex = 0; correctLettersIndex < correctLetters.length; correctLettersIndex++) {
+            var correctLettersLetter = correctLetters[correctLettersIndex];
+            if (currentWordLetter === correctLettersLetter) {
+                displayWord += currentWordLetter;
+                var matched = true;
+                break;
+            }
+        }
+        if (matched === false) {
+            displayWord += "_";
+        }
+    }
+
+    currentWordDiv.textContent = displayWord;
+}
+
