@@ -13,27 +13,31 @@
 </head>
 
 <body>
-    <header>
-        <h1>Hangman: Cat Edition</h1>
-        <header>
+    <div class="container">
+        <div class="row">
+                <div class="col-md-6 offset-md-3 box-content text-center">
+                        <h1 class="display-4">Hangman: Cat Edition</h1>
+                        <br>
+                    <h2>Press any key to get started!</h2>
+                    <h2 class="d-inline">Wins:</h2>
+                    <span id="wins">
+                    </span>
+                    <div id="displayWord">
+                    </div>
+                    <hr>
+                    <h2 class="d-inline">Guesses remaining:</h2>
+                    <span id="guessesRemaining">
+                    </span>
+                    <br>
+                    <h2>Letters already guessed:</h2>
+                    <div id="wrongLetters"></div>
+                    
+                </div>
+            </div>
+        </div>
 
-            <h2>Press any key to get started!</h2>
-            <h2>Wins:</h2>
-            <div id="wins">
-            </div>
-            <h2>Current word:</h2>
-            <div id="currentWord">
-            </div>
-            <hr>
-            <h2>Number of guessing remaining:</h2>
-            <div id="guessesRemaining">
-            </div>
-            <h2>Letters already guessed:</h2>
-            <div id="wrongLetters">
-            </div>
 
-
-            <script src="assets/javascript/game.js"></script>
+        <script src="assets/javascript/game.js"></script>
 
 </body>
 

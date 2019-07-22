@@ -1,0 +1,19 @@
+.box-content {
+    margin-top: 30px;
+    border-width:2px;
+    border-color:#000;
+    background-color:#fff;
+    border-style:solid;
+    padding:20px;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: fantasy;
+    background-image: url("../images/background.png");
+}
+
+#displayWord {
+    letter-spacing: 10px;
+    font-size: 35px;
+}

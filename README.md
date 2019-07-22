@@ -1,0 +1,1 @@
+My first first game project; hangman. My first time using Javascript. Learned for loops, functions, key events, nested for loops. Code isn't super concise yet, as I am a new programmer. Also used bootstrap to style.
